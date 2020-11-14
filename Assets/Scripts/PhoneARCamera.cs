@@ -116,7 +116,7 @@ public class PhoneARCamera : MonoBehaviour
 
         // Convert the image to format, flipping the image across the Y axis.
         // We can also get a sub rectangle, but we'll get the full image here.
-        var conversionParams = new XRCpuImage.ConversionParams(image, format, XRCpuImage.Transformation.MirrorX);
+        var conversionParams = new XRCpuImage.ConversionParams(image, format, XRCpuImage.Transformation.None);
 
         // Texture2D allows us write directly to the raw texture data
         // This allows us to do the conversion in-place without making any copies.
