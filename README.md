@@ -16,6 +16,7 @@ It is developed in Unity 2019.4.9 and requires product ready Barracuda with upda
 * Open the project in Unity (Versions > 2019.4.9).
 * In `Edit -> Player Settings -> Other XR Plug-in Management`, make sure Initialize XR on Startup and Plug-in providers are marked to enable ARCamera.
 * Make sure that Detector has ONNX Model file and Labels file set.
+* For Android, check the Minimum API Level at `Project Settings -> Player -> Others Settings -> Minimum API Level`. it requires at least Android 7.0 'Nougat' (API Level 24).
 * In `File -> Build settings` choose Detect and hit Build and run.
 * For IOS, fix team setting in `Signing & Capabilities`.
 
