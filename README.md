@@ -10,13 +10,14 @@
     "com.unity.xr.arfoundation": "4.0.8",
     "com.unity.xr.arkit": "4.0.8",
     "com.unity.xr.arcore": "4.0.8"
-    
+
 ## Usage
 It is developed in Unity 2019.4.9 and requires product ready Barracuda with updated AR packages. The preview Barracuda versions seems unstable and may not work.
 * Open the project in Unity (Versions > 2019.4.9).
 * In `Edit -> Player Settings -> Other XR Plug-in Management`, make sure Initialize XR on Startup and Plug-in providers are marked to enable ARCamera.
 * Make sure that Detector has ONNX Model file and Labels file set.
 * For Android, check the Minimum API Level at `Project Settings -> Player -> Others Settings -> Minimum API Level`. it requires at least Android 7.0 'Nougat' (API Level 24).
+* For Android, also enable Auto Graphics API. [See Issue](https://github.com/derenlei/Unity_Detection2AR/issues/3#issuecomment-727286451)
 * In `File -> Build settings` choose Detect and hit Build and run.
 * For IOS, fix team setting in `Signing & Capabilities`.
 
