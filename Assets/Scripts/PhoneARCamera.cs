@@ -51,7 +51,7 @@ public class PhoneARCamera : MonoBehaviour
     // bounding boxes detected for current frame
     private IList<BoundingBox> boxOutlines;
     // bounding boxes detected across frames
-    public List<BoundingBox>  boxSavedOutlines = new List<BoundingBox>();
+    public List<BoundingBox> boxSavedOutlines = new List<BoundingBox>();
     // lock model when its inferencing a frame
     private bool isDetecting = false;
     public Detector detector;
@@ -65,7 +65,7 @@ public class PhoneARCamera : MonoBehaviour
     {
         if (m_CameraManager != null)
         {
-          m_CameraManager.frameReceived += OnCameraFrameReceived;
+            m_CameraManager.frameReceived += OnCameraFrameReceived;
         }
 
         boxOutlineTexture = new Texture2D(1, 1);
@@ -84,7 +84,7 @@ public class PhoneARCamera : MonoBehaviour
     {
         if (m_CameraManager != null)
         {
-          m_CameraManager.frameReceived -= OnCameraFrameReceived;
+            m_CameraManager.frameReceived -= OnCameraFrameReceived;
         }
     }
 
@@ -296,13 +296,13 @@ public class PhoneARCamera : MonoBehaviour
 
     private IEnumerator ProcessImage(int inputSize, System.Action<Color32[]> callback)
     {
-         Coroutine croped = StartCoroutine(TextureTools.CropSquare(m_Texture,
-            TextureTools.RectOptions.Center, snap =>
-            {
-                var scaled = Scale(snap, inputSize);
-                var rotated = Rotate(scaled.GetPixels32(), scaled.width, scaled.height);
-                callback(rotated);
-            }));
+        Coroutine croped = StartCoroutine(TextureTools.CropSquare(m_Texture,
+           TextureTools.RectOptions.Center, snap =>
+           {
+               var scaled = Scale(snap, inputSize);
+               var rotated = Rotate(scaled.GetPixels32(), scaled.width, scaled.height);
+               callback(rotated);
+           }));
         yield return croped;
     }
 
