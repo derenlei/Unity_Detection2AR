@@ -425,17 +425,17 @@ PrefabInstance:
     - target: {fileID: 8151608749036815813, guid: 2c1d34a0b201e4f8ea095f4a30d79d6f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 8151608749036815813, guid: 2c1d34a0b201e4f8ea095f4a30d79d6f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 8151608749036815813, guid: 2c1d34a0b201e4f8ea095f4a30d79d6f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 8151608749036815813, guid: 2c1d34a0b201e4f8ea095f4a30d79d6f,
         type: 3}
@@ -496,6 +496,18 @@ TextMesh:
     type: 3}
   m_PrefabInstance: {fileID: 1274020240}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1274020243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274020241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79019c9fc138647828d00740109116cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1293103699
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,7 +544,6 @@ MonoBehaviour:
   scaleFactor: 1
   colorTag: {r: 0.3843137, g: 0, b: 0.9333333, a: 1}
   detector: {fileID: 1806990143}
-  fitter: {fileID: 0}
   localization: 0
 --- !u!4 &1293103702
 Transform:
@@ -820,7 +831,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce89f3ad92cf4ef69e0d2b97e8c16d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phoneARCamera: {fileID: 0}
+  m_RaycastManager: {fileID: 0}
   anchorObj_mesh: {fileID: 1274020242}
+  m_AnchorManager: {fileID: 0}
 --- !u!114 &1768617440
 MonoBehaviour:
   m_ObjectHideFlags: 0
