@@ -34,6 +34,7 @@ public class AnchorCreator : MonoBehaviour
             var hit = s_Hits[0];
             //TextMesh anchorObj = GameObject.Find("New Text").GetComponent<TextMesh>();
             // Create a new anchor
+            Debug.Log("Creating Anchor");
             var anchor = CreateAnchor(hit);
             if (anchor)
             {
@@ -47,6 +48,10 @@ public class AnchorCreator : MonoBehaviour
                 Debug.Log("DEBUG: Error creating anchor");
                 return false;
             }
+        }
+        else
+        {
+            //Debug.Log("Couldn't raycast");
         }
         return false;
     }
@@ -71,7 +76,7 @@ public class AnchorCreator : MonoBehaviour
             {
                 if (!boxSavedOutlines.Contains(pair.Value))
                 {
-                    Debug.Log( $"DEBUG: anchor removed. {pair.Value.Label}: {(int)(pair.Value.Confidence * 100)}%");
+                    Debug.Log($"DEBUG: anchor removed. {pair.Value.Label}: {(int)(pair.Value.Confidence * 100)}%");
 
                     anchorDic.Remove(pair.Key);
                     m_AnchorManager.RemoveAnchor(pair.Key);
@@ -108,7 +113,12 @@ public class AnchorCreator : MonoBehaviour
 
             if (Pos2Anchor(center_x, center_y, outline))
             {
+                Debug.Log("Outline used is true");
                 outline.Used = true;
+            }
+            else
+            {
+                //Debug.Log("Outline used is false");
             }
         }
         Debug.Log($"DEBUG: Current number of anchors {anchorDic.Count}.");
@@ -119,7 +129,7 @@ public class AnchorCreator : MonoBehaviour
     IDictionary<ARAnchor, BoundingBox> anchorDic = new Dictionary<ARAnchor, BoundingBox>();
 
     // from PhoneARCamera
-    private List<BoundingBox>  boxSavedOutlines;
+    private List<BoundingBox> boxSavedOutlines;
     private float shiftX;
     private float shiftY;
     private float scaleFactor;
@@ -130,5 +140,6 @@ public class AnchorCreator : MonoBehaviour
     public ARAnchorManager m_AnchorManager;
 
     // Raycast against planes and feature points
-    const TrackableType trackableTypes = TrackableType.Planes;//FeaturePoint;
+    //const TrackableType trackableTypes = TrackableType.Planes;//FeaturePoint;
+    const TrackableType trackableTypes = TrackableType.Planes | TrackableType.FeaturePoint;
 }
