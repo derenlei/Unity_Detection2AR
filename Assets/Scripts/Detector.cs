@@ -14,23 +14,31 @@ public class Detector : MonoBehaviour
 
     private const int IMAGE_MEAN = 0;
     private const float IMAGE_STD = 255.0F;
-    // ONNX model input and output name. Modify when switching models.
-    private const string INPUT_NAME = "yolov2-tiny/net1";
-    private const string OUTPUT_NAME = "yolov2-tiny/convolutional9/BiasAdd";
 
+    // ONNX model input and output name. Modify when switching models.
+    //These aren't const values because they need to be easily edited on the component before play mode
+
+    //private const string INPUT_NAME = "yolov2-tiny/net1";
+    //private const string OUTPUT_NAME = "yolov2-tiny/convolutional9/BiasAdd";
+    public string INPUT_NAME = "000_net";
+    public string OUTPUT_NAME = "023_convolutional";
+
+    //This has to stay a const
     public const int IMAGE_SIZE = 416;
 
-    // Minimum detection confidence to track a detection.
-    private const float MINIMUM_CONFIDENCE = 0.25f;
+    // Minimum detection confidence to track a detection, made this higher at 60% to reduce noise
+    public float MINIMUM_CONFIDENCE = 0.25f;
 
     private IWorker worker;
-
 
     public const int ROW_COUNT = 13;
     public const int COL_COUNT = 13;
     public const int BOXES_PER_CELL = 5;
     public const int BOX_INFO_FEATURE_COUNT = 5;
-    public const int CLASS_COUNT = 100;
+
+    //Update this!
+    public int CLASS_COUNT = 2;
+
     public const float CELL_WIDTH = 32;
     public const float CELL_HEIGHT = 32;
     private string[] labels;
@@ -38,7 +46,9 @@ public class Detector : MonoBehaviour
     private float[] anchors = new float[]
     {
         // 1.08F, 1.19F, 3.42F, 4.41F, 6.63F, 11.38F, 9.42F, 5.11F, 16.62F, 10.52F  // yolov2-tiny-voc
+        //0.57273F, 0.677385F, 1.87446F, 2.06253F, 3.33843F, 5.47434F, 7.88282F, 3.52778F, 9.77052F, 9.16828F // yolov2-tiny
         0.57273F, 0.677385F, 1.87446F, 2.06253F, 3.33843F, 5.47434F, 7.88282F, 3.52778F, 9.77052F, 9.16828F  // yolov2-tiny-food
+        //0.57273F, 0.677385F, 1.87446F, 2.06253F, 3.33843F, 5.47434F, 7.88282F, 3.52778F, 9.77052F, 9.16828F // yolov3
     };
 
 
@@ -63,6 +73,7 @@ public class Detector : MonoBehaviour
             yield return StartCoroutine(worker.StartManualSchedule(inputs));
             //worker.Execute(inputs);
             var output = worker.PeekOutput(OUTPUT_NAME);
+            Debug.Log("Output: " + output);
             var results = ParseOutputs(output);
             var boxes = FilterBoundingBoxes(results, 5, MINIMUM_CONFIDENCE);
             callback(boxes);
@@ -170,6 +181,7 @@ public class Detector : MonoBehaviour
 
     private float GetConfidence(Tensor modelOutput, int x, int y, int channel)
     {
+        // Debug.Log("ModelOutput " + modelOutput);
         return Sigmoid(modelOutput[0, x, y, channel + 4]);
     }
 

@@ -123,6 +123,112 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &36209703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 36209705}
+  - component: {fileID: 36209704}
+  - component: {fileID: 36209707}
+  - component: {fileID: 36209706}
+  m_Layer: 0
+  m_Name: ARSim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &36209704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36209703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c7dbe8ee98417fa5d311951c5fd23f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneOrPrefab: {fileID: 5889051510850662349, guid: 9775f9a7f63d5bd46991c8ea9919f16d,
+    type: 3}
+  NotEditable: 1
+  HideInHierarchy: 1
+  HideInSceneView: 0
+  Format: 0
+  NotSaved: 1
+  AllowRuntimeUpdates: 0
+  previousRealitySceneOrPrefab: {fileID: 5889051510850662349, guid: 9775f9a7f63d5bd46991c8ea9919f16d,
+    type: 3}
+  isValidRealityScene: 1
+  environmentCamera: {fileID: 0}
+  currentRealityScenePath: 
+  currentRealitySceneInstance:
+    m_Handle: 0
+  currentRealityPrefabInstance: {fileID: 0}
+  instantiatedGameObjects: []
+--- !u!4 &36209705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36209703}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.83543235, y: 1.2246709, z: -1.8691459}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &36209706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36209703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9edb2a0699d542eebeee37fd7342f7e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Interval: 0.1
+  RaysPerFrame: 5
+  Mask:
+    serializedVersion: 2
+    m_Bits: 0
+  MaxDistance: 5
+  MaxCount: 1000
+  NormalOffset: 0.01
+  RandomJitter: 0
+  OrderHitsByDist: 0
+  DrawGizmosSelected: 0
+  _isFirstValidate: 0
+--- !u!114 &36209707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36209703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88d44bbac43449dbadd76670e26af24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleCount: 3
+  interval: 0.2
+  maxDistance: 5
+  planeEps: 0.1
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
+  _isFirstValidate: 0
 --- !u!1 &42609963
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +269,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &42609966
 Canvas:
   m_ObjectHideFlags: 0
@@ -701,7 +808,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 31
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -788,8 +895,9 @@ GameObject:
   - component: {fileID: 1768617437}
   - component: {fileID: 1768617441}
   - component: {fileID: 1768617440}
-  - component: {fileID: 1768617439}
   - component: {fileID: 1768617442}
+  - component: {fileID: 1768617439}
+  - component: {fileID: 1768617443}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -874,13 +982,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768617436}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ab0e80cee9cc1d44928bfe488dd1e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_PointCloudPrefab: {fileID: 1854016325464908, guid: 3682a31e884ba23498b98aa13424b070,
     type: 3}
+--- !u!114 &1768617443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768617436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlanePrefab: {fileID: 4790095165407838153, guid: c4e486de976fe5b458821f4f895780b2,
+    type: 3}
+  m_DetectionMode: -1
 --- !u!1 &1806990141
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +1050,10 @@ MonoBehaviour:
   modelFile: {fileID: 5022602860645237092, guid: 016586ec820c54c409f01ecabe1df1e2,
     type: 3}
   labelsFile: {fileID: 4900000, guid: 4308da5922acc4035bfd80354ca33fa8, type: 3}
+  INPUT_NAME: yolov2-tiny/net1
+  OUTPUT_NAME: yolov2-tiny/convolutional9/BiasAdd
+  MINIMUM_CONFIDENCE: 0.25
+  CLASS_COUNT: 100
 --- !u!850595691 &2118813720
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -934,7 +1061,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
-  serializedVersion: 2
+  serializedVersion: 3
   m_GIWorkflowMode: 0
   m_EnableBakedLightmaps: 1
   m_EnableRealtimeLightmaps: 1
@@ -956,7 +1083,7 @@ LightingSettings:
   m_MixedBakeMode: 2
   m_LightmapsBakeMode: 1
   m_FilterMode: 1
-  m_LightmapParameters: {fileID: 0}
+  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
   m_ExportTrainingData: 0
   m_TrainingDataDestination: TrainingData
   m_RealtimeResolution: 2
@@ -973,7 +1100,7 @@ LightingSettings:
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 4
   m_PVRBounces: 2
-  m_PVRRussianRouletteStartBounce: 2
+  m_PVRMinBounces: 1
   m_PVREnvironmentMIS: 0
   m_PVRFilteringMode: 2
   m_PVRDenoiserTypeDirect: 0
