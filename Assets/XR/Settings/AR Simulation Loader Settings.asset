@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4131c50fb82c3f844a2b9846971716b1, type: 3}
+  m_Name: AR Simulation Loader Settings
+  m_EditorClassIdentifier: 
+  m_firstInstallation: 0
+  m_StartAndStopSubsystems: 1
+  m_addXRLoader: 1
+  m_autoSceneSetup: 1
+  m_autoPlane: 1
+  m_allowAutoPointCloud: 1
+  m_autoAnchor: 1
+  m_autoTrackedImage: 1
+  m_autoTrackedObject: 1
+  m_autoMeshing: 1
+  m_allowMarkEditorOnlyGameObjectsInHierarchy: 1
+  m_inputSettings:
+    DeactivateWithSubsystem: 1
+    DisableInputWithSelectedUI: 1
+    Mode: 1
+    Keys: 1
+    MovementSensitivity: 1
+    RotationSensitivity: 1
+    Mouse: 1
+    FocusKey: 102
+    FocusAt: 1
+    DefaultFocusDistance: 1.5
+  m_allowAutoSetupLogging: 0
