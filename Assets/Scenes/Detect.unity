@@ -982,7 +982,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768617436}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ab0e80cee9cc1d44928bfe488dd1e2d, type: 3}
   m_Name: 
@@ -1047,13 +1047,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da11ba848a6f6304092f9ba436774b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelFile: {fileID: 5022602860645237092, guid: 016586ec820c54c409f01ecabe1df1e2,
+  modelFile: {fileID: 5022602860645237092, guid: 96ac13e0af946b144b74aa16683b6ea2,
     type: 3}
-  labelsFile: {fileID: 4900000, guid: 4308da5922acc4035bfd80354ca33fa8, type: 3}
+  labelsFile: {fileID: 4900000, guid: c88409e946cdfce4d856d1577eee644a, type: 3}
   INPUT_NAME: yolov2-tiny/net1
   OUTPUT_NAME: yolov2-tiny/convolutional9/BiasAdd
-  MINIMUM_CONFIDENCE: 0.25
-  CLASS_COUNT: 100
+  MINIMUM_CONFIDENCE: 0.5
+  CLASS_COUNT: 80
 --- !u!850595691 &2118813720
 LightingSettings:
   m_ObjectHideFlags: 0
