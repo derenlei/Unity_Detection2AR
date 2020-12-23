@@ -11,7 +11,7 @@
   "dependencies": {
     "com.needle.xr.arsimulation": "1.1.0-preview.2",
     "com.unity.barracuda": "1.2.1-preview",
-    "com.unity.device-simulator": "2.2.3-preview",
+    "com.unity.device-simulator": "2.2.4-preview",
     "com.unity.ide.visualstudio": "2.0.5",
     "com.unity.textmeshpro": "3.0.3",
     "com.unity.ugui": "1.0.0",

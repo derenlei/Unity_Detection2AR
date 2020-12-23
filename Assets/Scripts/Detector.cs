@@ -20,14 +20,17 @@ public class Detector : MonoBehaviour
 
     //private const string INPUT_NAME = "yolov2-tiny/net1";
     //private const string OUTPUT_NAME = "yolov2-tiny/convolutional9/BiasAdd";
-    public string INPUT_NAME = "000_net";
-    public string OUTPUT_NAME = "023_convolutional";
+    //public string INPUT_NAME = "000_net";
+    //public string OUTPUT_NAME = "023_convolutional";
+
+    public string INPUT_NAME;
+    public string OUTPUT_NAME;
 
     //This has to stay a const
     public const int IMAGE_SIZE = 416;
 
-    // Minimum detection confidence to track a detection, made this higher at 60% to reduce noise
-    public float MINIMUM_CONFIDENCE = 0.25f;
+    // Minimum detection confidence to track a detection
+    public float MINIMUM_CONFIDENCE;
 
     private IWorker worker;
 
@@ -37,7 +40,7 @@ public class Detector : MonoBehaviour
     public const int BOX_INFO_FEATURE_COUNT = 5;
 
     //Update this!
-    public int CLASS_COUNT = 2;
+    public int CLASS_COUNT;
 
     public const float CELL_WIDTH = 32;
     public const float CELL_HEIGHT = 32;
@@ -74,7 +77,7 @@ public class Detector : MonoBehaviour
             //worker.Execute(inputs);
             var output = worker.PeekOutput(OUTPUT_NAME);
             Debug.Log("Output: " + output);
-            var results = ParseOutputs(output);
+            var results = ParseOutputs(output, MINIMUM_CONFIDENCE);
             var boxes = FilterBoundingBoxes(results, 5, MINIMUM_CONFIDENCE);
             callback(boxes);
         }
@@ -98,7 +101,7 @@ public class Detector : MonoBehaviour
     }
 
 
-    private IList<BoundingBox> ParseOutputs(Tensor yoloModelOutput, float threshold = 0.25F)
+    private IList<BoundingBox> ParseOutputs(Tensor yoloModelOutput, float threshold)
     {
         var boxes = new List<BoundingBox>();
 
