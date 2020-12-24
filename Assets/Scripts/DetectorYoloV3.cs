@@ -117,7 +117,7 @@ namespace YoloV3
                     var channel = (box * (CLASS_COUNT + BOX_INFO_FEATURE_COUNT));
                     var bbd = ExtractBoundingBoxDimensions(yoloModelOutput, cx, cy, channel);
                     float confidence = GetConfidence(yoloModelOutput, cx, cy, channel);
-
+                    
                     if (confidence < threshold)
                     {
                         continue;

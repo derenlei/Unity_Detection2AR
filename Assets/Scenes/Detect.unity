@@ -1004,7 +1004,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768617436}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ab0e80cee9cc1d44928bfe488dd1e2d, type: 3}
   m_Name: 
@@ -1105,13 +1105,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bd27a5c38cf7f24f918e7de7d61d128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelFile: {fileID: 5022602860645237092, guid: fed09bffd2c948644bb5cd95673b46da,
+  modelFile: {fileID: 5022602860645237092, guid: 4a2bcbb5f0b2e0944a870de919b10629,
     type: 3}
-  labelsFile: {fileID: 4900000, guid: 1603e988ede65de4d9eb8c98bc3a77f2, type: 3}
+  labelsFile: {fileID: 4900000, guid: c88409e946cdfce4d856d1577eee644a, type: 3}
   INPUT_NAME: 000_net
   OUTPUT_NAME: 023_convolutional
-  MINIMUM_CONFIDENCE: 0.01
-  CLASS_COUNT: 2
+  MINIMUM_CONFIDENCE: 0.001
+  CLASS_COUNT: 80
 --- !u!850595691 &2118813720
 LightingSettings:
   m_ObjectHideFlags: 0
