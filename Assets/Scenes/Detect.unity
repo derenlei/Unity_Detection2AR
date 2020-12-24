@@ -157,7 +157,7 @@ MonoBehaviour:
   SceneOrPrefab: {fileID: 5889051510850662349, guid: 5ea05c8affc774741915233a56ca6193,
     type: 3}
   NotEditable: 1
-  HideInHierarchy: 1
+  HideInHierarchy: 0
   HideInSceneView: 0
   Format: 0
   NotSaved: 1
@@ -629,6 +629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1293103702}
   - component: {fileID: 1293103701}
+  - component: {fileID: 1293103700}
   m_Layer: 0
   m_Name: Camera Image
   m_TagString: Untagged
@@ -636,7 +637,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1293103701
+--- !u!114 &1293103700
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -644,6 +645,26 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293103699}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5daca99ad57b8249bb42f798c2b1d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CameraManager: {fileID: 1479178377}
+  m_RawImage: {fileID: 1375191585}
+  shiftX: 0
+  shiftY: 0
+  scaleFactor: 1
+  colorTag: {r: 0.3843137, g: 0, b: 0.9333333, a: 1}
+  detector: {fileID: 1806990144}
+  localization: 0
+--- !u!114 &1293103701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293103699}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92f78a26596dc4161946c702f35b9b54, type: 3}
   m_Name: 
@@ -896,8 +917,9 @@ GameObject:
   - component: {fileID: 1768617441}
   - component: {fileID: 1768617440}
   - component: {fileID: 1768617442}
-  - component: {fileID: 1768617439}
   - component: {fileID: 1768617443}
+  - component: {fileID: 1768617439}
+  - component: {fileID: 1768617444}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -940,7 +962,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768617436}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ce89f3ad92cf4ef69e0d2b97e8c16d8, type: 3}
   m_Name: 
@@ -982,7 +1004,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768617436}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ab0e80cee9cc1d44928bfe488dd1e2d, type: 3}
   m_Name: 
@@ -1004,6 +1026,22 @@ MonoBehaviour:
   m_PlanePrefab: {fileID: 4790095165407838153, guid: c4e486de976fe5b458821f4f895780b2,
     type: 3}
   m_DetectionMode: -1
+--- !u!114 &1768617444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768617436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee95338b9884b34e8a9040940ad6424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phoneARCamera: {fileID: 1293103700}
+  m_RaycastManager: {fileID: 1768617441}
+  anchorObj_mesh: {fileID: 1274020242}
+  m_AnchorManager: {fileID: 1768617440}
 --- !u!1 &1806990141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,6 +1052,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1806990142}
   - component: {fileID: 1806990143}
+  - component: {fileID: 1806990144}
   m_Layer: 0
   m_Name: Detector
   m_TagString: Untagged
@@ -1042,7 +1081,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806990141}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da11ba848a6f6304092f9ba436774b18, type: 3}
   m_Name: 
@@ -1054,6 +1093,25 @@ MonoBehaviour:
   OUTPUT_NAME: yolov2-tiny/convolutional9/BiasAdd
   MINIMUM_CONFIDENCE: 0.5
   CLASS_COUNT: 80
+--- !u!114 &1806990144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806990141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bd27a5c38cf7f24f918e7de7d61d128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelFile: {fileID: 5022602860645237092, guid: fed09bffd2c948644bb5cd95673b46da,
+    type: 3}
+  labelsFile: {fileID: 4900000, guid: 1603e988ede65de4d9eb8c98bc3a77f2, type: 3}
+  INPUT_NAME: 000_net
+  OUTPUT_NAME: 023_convolutional
+  MINIMUM_CONFIDENCE: 0.01
+  CLASS_COUNT: 2
 --- !u!850595691 &2118813720
 LightingSettings:
   m_ObjectHideFlags: 0

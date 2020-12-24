@@ -95,7 +95,7 @@ namespace TFClassify
             }
 
             yield return null;
-            Debug.Log("DEBUG: CropSquare done");
+            //Debug.Log("DEBUG: CropSquare done");
 
             if (result == null)
             {
