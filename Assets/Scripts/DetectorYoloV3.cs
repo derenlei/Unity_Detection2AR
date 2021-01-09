@@ -38,7 +38,7 @@ namespace YoloV3
 
     public const int ROW_COUNT = 13;
     public const int COL_COUNT = 13;
-    public const int BOXES_PER_CELL = 5;
+    public const int BOXES_PER_CELL = 3;
     public const int BOX_INFO_FEATURE_COUNT = 5;
 
     //Update this!
@@ -198,8 +198,8 @@ namespace YoloV3
         {
             X = ((float)y + Sigmoid(boxDimensions.X)) * CELL_WIDTH,
             Y = ((float)x + Sigmoid(boxDimensions.Y)) * CELL_HEIGHT,
-            Width = (float)Math.Exp(boxDimensions.Width) * CELL_WIDTH * anchors[box * 2],
-            Height = (float)Math.Exp(boxDimensions.Height) * CELL_HEIGHT * anchors[box * 2 + 1],
+            Width = (float)Math.Exp(boxDimensions.Width) * anchors[6 + box * 2],
+            Height = (float)Math.Exp(boxDimensions.Height) * anchors[6 + box * 2 + 1],
         };
     }
 
