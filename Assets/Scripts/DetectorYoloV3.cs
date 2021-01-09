@@ -6,9 +6,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-
-public class Detector : MonoBehaviour
+namespace YoloV3
 {
+    public class DetectorYoloV3 : MonoBehaviour
+{
+    
     public NNModel modelFile;
     public TextAsset labelsFile;
 
@@ -30,7 +32,7 @@ public class Detector : MonoBehaviour
     public const int IMAGE_SIZE = 416;
 
     // Minimum detection confidence to track a detection
-    public float MINIMUM_CONFIDENCE;
+    public float MINIMUM_CONFIDENCE = 0.25f;
 
     private IWorker worker;
 
@@ -50,8 +52,9 @@ public class Detector : MonoBehaviour
     {
         // 1.08F, 1.19F, 3.42F, 4.41F, 6.63F, 11.38F, 9.42F, 5.11F, 16.62F, 10.52F  // yolov2-tiny-voc
         //0.57273F, 0.677385F, 1.87446F, 2.06253F, 3.33843F, 5.47434F, 7.88282F, 3.52778F, 9.77052F, 9.16828F // yolov2-tiny
-        0.57273F, 0.677385F, 1.87446F, 2.06253F, 3.33843F, 5.47434F, 7.88282F, 3.52778F, 9.77052F, 9.16828F  // yolov2-tiny-food
+        //0.57273F, 0.677385F, 1.87446F, 2.06253F, 3.33843F, 5.47434F, 7.88282F, 3.52778F, 9.77052F, 9.16828F  // yolov2-tiny-food
         //0.57273F, 0.677385F, 1.87446F, 2.06253F, 3.33843F, 5.47434F, 7.88282F, 3.52778F, 9.77052F, 9.16828F // yolov3
+        10F, 14F,  23F, 27F,  37F, 58F,  81F, 82F,  135F, 169F,  344F, 319F // yolov3-tiny
     };
 
 
@@ -61,7 +64,7 @@ public class Detector : MonoBehaviour
             .Where(s => !String.IsNullOrEmpty(s)).ToArray();
         var model = ModelLoader.Load(this.modelFile);
         // https://docs.unity3d.com/Packages/com.unity.barracuda@1.0/manual/Worker.html
-        // var workerType = WorkerFactory.Type.ComputePrecompiled; // GPU
+        //var workerType = WorkerFactory.Type.ComputePrecompiled; // GPU
         var workerType = WorkerFactory.Type.CSharpBurst;  // CPU
         this.worker = WorkerFactory.CreateWorker(workerType, model);
     }
@@ -76,7 +79,7 @@ public class Detector : MonoBehaviour
             yield return StartCoroutine(worker.StartManualSchedule(inputs));
             //worker.Execute(inputs);
             var output = worker.PeekOutput(OUTPUT_NAME);
-            Debug.Log("Output: " + output);
+            //Debug.Log("Output: " + output);
             var results = ParseOutputs(output, MINIMUM_CONFIDENCE);
             var boxes = FilterBoundingBoxes(results, 5, MINIMUM_CONFIDENCE);
             callback(boxes);
@@ -114,7 +117,7 @@ public class Detector : MonoBehaviour
                     var channel = (box * (CLASS_COUNT + BOX_INFO_FEATURE_COUNT));
                     var bbd = ExtractBoundingBoxDimensions(yoloModelOutput, cx, cy, channel);
                     float confidence = GetConfidence(yoloModelOutput, cx, cy, channel);
-
+                    
                     if (confidence < threshold)
                     {
                         continue;
@@ -184,7 +187,7 @@ public class Detector : MonoBehaviour
 
     private float GetConfidence(Tensor modelOutput, int x, int y, int channel)
     {
-        // Debug.Log("ModelOutput " + modelOutput);
+        //Debug.Log("ModelOutput " + modelOutput);
         return Sigmoid(modelOutput[0, x, y, channel + 4]);
     }
 
@@ -333,4 +336,5 @@ public class BoundingBox
     {
         return $"{Label}:{Confidence}, {Dimensions.X}:{Dimensions.Y} - {Dimensions.Width}:{Dimensions.Height}";
     }
+}
 }

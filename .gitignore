@@ -58,3 +58,11 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Samples/AR Simulation/
+Assets/Samples/AR Simulation.meta
+Assets/Samples.meta
+Assets/Test/NewBehaviourScript.cs
+Assets/Test/
+Assets/Test.meta
+Packages/package/
+Packages/packages-lock.json
