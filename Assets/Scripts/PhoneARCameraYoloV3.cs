@@ -62,6 +62,8 @@ namespace YoloV3
         private int staticNum = 0;
         public bool localization = false;
 
+        private bool locked = false;
+
         Texture2D m_Texture;
 
         void OnEnable()
@@ -144,15 +146,14 @@ namespace YoloV3
                 localization = true;
             }
             else
-            {
+            {  
                 // detect object and create current frame outlines
                 TFDetect();
                 // merging outliens across frames
-                GroupBoxOutlines();
+                GroupBoxOutlines();   
             }
             // Set the RawImage's texture so we can visualize it.
             m_RawImage.texture = m_Texture;
-
         }
 
         public void OnGUI()
@@ -165,6 +166,7 @@ namespace YoloV3
 
             if (this.boxSavedOutlines != null && this.boxSavedOutlines.Any())
             {
+                Debug.Log("DEBUG: "+this.boxSavedOutlines.Count);
                 foreach (var outline in this.boxSavedOutlines)
                 {
                     DrawBoxOutline(outline, scaleFactor, shiftX, shiftY);
@@ -175,12 +177,19 @@ namespace YoloV3
         // merging bounding boxes and save result to boxSavedOutlines
         private void GroupBoxOutlines()
         {
+            // if (locked)
+            // {
+            //     return;
+            // }
+            // locked=true;
+            Debug.Log("DEBUG: call group");
             // if savedoutlines is empty, add current frame outlines if possible.
             if (this.boxSavedOutlines.Count == 0)
             {
                 // no bounding boxes in current frame
                 if (this.boxOutlines == null || this.boxOutlines.Count == 0)
                 {
+                    Debug.Log("DEBUG: exit group");
                     return;
                 }
                 // deep copy current frame bounding boxes
@@ -188,6 +197,7 @@ namespace YoloV3
                 {
                     this.boxSavedOutlines.Add(outline);
                 }
+                Debug.Log("DEBUG: exit group");
                 return;
             }
 
@@ -201,18 +211,23 @@ namespace YoloV3
                     // if two bounding boxes are for the same object, use high confidnece one
                     if (IsSameObject(outline1, outline2))
                     {
+                        Debug.Log("DEBUG: is same object");
                         unique = false;
-                        if (outline1.Confidence > outline2.Confidence) //& outline2.Confidence < 0.5F)
+                        if (outline1.Confidence > outline2.Confidence + 0.05F) //& outline2.Confidence < 0.5F)
                         {
                             Debug.Log("DEBUG: add detected boxes in this frame.");
-                            Debug.Log($"Add Label: {outline1.Label}. Confidence: {outline1.Confidence}.");
-                            Debug.Log($"Remove Label: {outline2.Label}. Confidence: {outline2.Confidence}.");
+                            Debug.Log($"DEBUG: Add Label: {outline1.Label}. Confidence: {outline1.Confidence}.");
+                            Debug.Log($"DEBUG: Remove Label: {outline2.Label}. Confidence: {outline2.Confidence}.");
 
                             this.boxSavedOutlines.Remove(outline2);
                             this.boxSavedOutlines.Add(outline1);
                             addOutline = true;
                             staticNum = 0;
                             break;
+                        }
+                        else
+                        {
+                            Debug.Log("DEBUG: low confidence. no remove");
                         }
                     }
                 }
@@ -223,7 +238,10 @@ namespace YoloV3
                     addOutline = true;
                     staticNum = 0;
                     this.boxSavedOutlines.Add(outline1);
-                    Debug.Log($"Add Label: {outline1.Label}. Confidence: {outline1.Confidence}.");
+                    Debug.Log($"DEBUG: Add Label: {outline1.Label}. Confidence: {outline1.Confidence}.");
+                }
+                else {
+                    Debug.Log("DEBUG: no add.");
                 }
             }
             if (!addOutline)
@@ -231,6 +249,36 @@ namespace YoloV3
                 staticNum += 1;
             }
 
+            // merge same bounding boxes
+            // remove will cause duplicated bounding box?
+            List<BoundingBox> temp = new List<BoundingBox>();
+            foreach (var outline1 in this.boxSavedOutlines)
+            {
+                if (temp.Count == 0)
+                {
+                    temp.Add(outline1);
+                    continue;
+                }
+                foreach (var outline2 in temp)
+                {
+                    if (IsSameObject(outline1, outline2))
+                    {
+                        if (outline1.Confidence > outline2.Confidence)
+                        {
+                            temp.Remove(outline2);
+                            temp.Add(outline1);
+                            Debug.Log("DEBUG: merge bounding box conflict!!!");
+                        }
+                    }
+                    else
+                    {
+                        temp.Add(outline1);
+                    }
+                }
+            }
+            this.boxSavedOutlines = temp;
+
+            Debug.Log("DEBUG: exit group");
         }
 
         // For two bounding boxes, if at least one center is inside the other box,
@@ -251,12 +299,12 @@ namespace YoloV3
             float center_x2 = xMin2 + width2 / 2f;
             float center_y2 = yMin2 + height2 / 2f;
 
-            bool cover_x = (xMin2 < center_x1) & (center_x1 < (xMin2 + width2));
-            bool cover_y = (yMin2 < center_y1) & (center_y1 < (yMin2 + height2));
-            bool contain_x = (xMin1 < center_x2) & (center_x2 < (xMin1 + width1));
-            bool contain_y = (yMin1 < center_y2) & (center_y2 < (yMin1 + height1));
+            bool cover_x = (xMin2 < center_x1) && (center_x1 < (xMin2 + width2));
+            bool cover_y = (yMin2 < center_y1) && (center_y1 < (yMin2 + height2));
+            bool contain_x = (xMin1 < center_x2) && (center_x2 < (xMin1 + width1));
+            bool contain_y = (yMin1 < center_y2) && (center_y2 < (yMin1 + height1));
 
-            return (cover_x & cover_y) | (contain_x & contain_y);
+            return (cover_x && cover_y) || (contain_x && contain_y);
         }
 
         private void CalculateShift(int inputSize)

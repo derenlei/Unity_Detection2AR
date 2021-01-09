@@ -1109,7 +1109,8 @@ MonoBehaviour:
     type: 3}
   labelsFile: {fileID: 4900000, guid: c88409e946cdfce4d856d1577eee644a, type: 3}
   INPUT_NAME: 000_net
-  OUTPUT_NAME: 016_convolutional
+  OUTPUT_NAME_L: 016_convolutional
+  OUTPUT_NAME_M: 023_convolutional
   MINIMUM_CONFIDENCE: 0.4
   CLASS_COUNT: 80
 --- !u!850595691 &2118813720

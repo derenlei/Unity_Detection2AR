@@ -26,7 +26,8 @@ namespace YoloV3
     //public string OUTPUT_NAME = "023_convolutional";
 
     public string INPUT_NAME;
-    public string OUTPUT_NAME;
+    public string OUTPUT_NAME_L;
+    public string OUTPUT_NAME_M;
 
     //This has to stay a const
     public const int IMAGE_SIZE = 416;
@@ -36,16 +37,22 @@ namespace YoloV3
 
     private IWorker worker;
 
-    public const int ROW_COUNT = 13;
-    public const int COL_COUNT = 13;
+    // public const int ROW_COUNT_L = 13;
+    // public const int COL_COUNT_L = 13;
+    // public const int ROW_COUNT_M = 26;
+    // public const int COL_COUNT_M = 26;
+    public Dictionary<string, int> params_l = new Dictionary<string, int>(){{"ROW_COUNT", 13}, {"COL_COUNT", 13}, {"CELL_WIDTH", 32}, {"CELL_HEIGHT", 32}};
+    public Dictionary<string, int> params_m = new Dictionary<string, int>(){{"ROW_COUNT", 26}, {"COL_COUNT", 26}, {"CELL_WIDTH", 16}, {"CELL_HEIGHT", 16}};
     public const int BOXES_PER_CELL = 3;
     public const int BOX_INFO_FEATURE_COUNT = 5;
 
     //Update this!
     public int CLASS_COUNT;
 
-    public const float CELL_WIDTH = 32;
-    public const float CELL_HEIGHT = 32;
+    // public const float CELL_WIDTH_L = 32;
+    // public const float CELL_HEIGHT_L = 32;
+    // public const float CELL_WIDTH_M = 16;
+    // public const float CELL_HEIGHT_M = 16;
     private string[] labels;
 
     private float[] anchors = new float[]
@@ -69,6 +76,8 @@ namespace YoloV3
         this.worker = WorkerFactory.CreateWorker(workerType, model);
     }
 
+    
+
 
     public IEnumerator Detect(Color32[] picture, System.Action<IList<BoundingBox>> callback)
     {
@@ -78,9 +87,13 @@ namespace YoloV3
             inputs.Add(INPUT_NAME, tensor);
             yield return StartCoroutine(worker.StartManualSchedule(inputs));
             //worker.Execute(inputs);
-            var output = worker.PeekOutput(OUTPUT_NAME);
+            var output_l = worker.PeekOutput(OUTPUT_NAME_L);
+            var output_m = worker.PeekOutput(OUTPUT_NAME_M);
             //Debug.Log("Output: " + output);
-            var results = ParseOutputs(output, MINIMUM_CONFIDENCE);
+            var results_l = ParseOutputs(output_l, MINIMUM_CONFIDENCE, params_l);
+            var results_m = ParseOutputs(output_m, MINIMUM_CONFIDENCE, params_m);
+            var results = results_l.Concat(results_m).ToList();
+
             var boxes = FilterBoundingBoxes(results, 5, MINIMUM_CONFIDENCE);
             callback(boxes);
         }
@@ -104,13 +117,13 @@ namespace YoloV3
     }
 
 
-    private IList<BoundingBox> ParseOutputs(Tensor yoloModelOutput, float threshold)
+    private IList<BoundingBox> ParseOutputs(Tensor yoloModelOutput, float threshold, Dictionary<string, int> parameters)
     {
         var boxes = new List<BoundingBox>();
 
-        for (int cy = 0; cy < COL_COUNT; cy++)
+        for (int cy = 0; cy < parameters["COL_COUNT"]; cy++)
         {
-            for (int cx = 0; cx < ROW_COUNT; cx++)
+            for (int cx = 0; cx < parameters["ROW_COUNT"]; cx++)
             {
                 for (int box = 0; box < BOXES_PER_CELL; box++)
                 {
@@ -133,7 +146,7 @@ namespace YoloV3
                         continue;
                     }
 
-                    var mappedBoundingBox = MapBoundingBoxToCell(cx, cy, box, bbd);
+                    var mappedBoundingBox = MapBoundingBoxToCell(cx, cy, box, bbd, parameters);
                     boxes.Add(new BoundingBox
                     {
                         Dimensions = new BoundingBoxDimensions
@@ -192,12 +205,12 @@ namespace YoloV3
     }
 
 
-    private CellDimensions MapBoundingBoxToCell(int x, int y, int box, BoundingBoxDimensions boxDimensions)
+    private CellDimensions MapBoundingBoxToCell(int x, int y, int box, BoundingBoxDimensions boxDimensions, Dictionary<string, int> parameters)
     {
         return new CellDimensions
         {
-            X = ((float)y + Sigmoid(boxDimensions.X)) * CELL_WIDTH,
-            Y = ((float)x + Sigmoid(boxDimensions.Y)) * CELL_HEIGHT,
+            X = ((float)y + Sigmoid(boxDimensions.X)) * parameters["CELL_WIDTH"],
+            Y = ((float)x + Sigmoid(boxDimensions.Y)) * parameters["CELL_HEIGHT"],
             Width = (float)Math.Exp(boxDimensions.Width) * anchors[6 + box * 2],
             Height = (float)Math.Exp(boxDimensions.Height) * anchors[6 + box * 2 + 1],
         };
