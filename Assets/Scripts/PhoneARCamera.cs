@@ -47,7 +47,7 @@ public class PhoneARCamera : MonoBehaviour
     };
     public Detectors selected_detector;
 
-    public Detector detector;
+    public Detector detector = null;
 
     public float shiftX = 0f;
     public float shiftY = 0f;
@@ -85,11 +85,11 @@ public class PhoneARCamera : MonoBehaviour
 
         if (selected_detector == Detectors.Yolo2_tiny)
         {
-            detector = new DetectorYolo2();
+            detector = GameObject.Find("Detector Yolo2-tiny").GetComponent<DetectorYolo2>();
         }
         else if (selected_detector == Detectors.Yolo3_tiny)
         {
-            detector = new DetectorYolo3();
+            detector = GameObject.Find("Detector Yolo3-tiny").GetComponent<DetectorYolo3>();
         }
         else
         {

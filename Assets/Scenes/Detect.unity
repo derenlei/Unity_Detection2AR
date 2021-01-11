@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.3587269, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -650,6 +650,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CameraManager: {fileID: 1479178377}
   m_RawImage: {fileID: 1375191585}
+  selected_detector: 0
+  detector: {fileID: 2031168778}
   shiftX: 0
   shiftY: 0
   scaleFactor: 1
@@ -1029,15 +1031,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2031168777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1aa43e9d2ec3484ba358d0125fb8fc9, type: 3}
+  m_Script: {fileID: 11500000, guid: cec27819255f0ea47bcc6d3f47bff5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   modelFile: {fileID: 5022602860645237092, guid: 016586ec820c54c409f01ecabe1df1e2,
     type: 3}
   labelsFile: {fileID: 4900000, guid: 4308da5922acc4035bfd80354ca33fa8, type: 3}
-  INPUT_NAME: net1
-  OUTPUT_NAME: convolutional9/BiasAdd
-  MINIMUM_CONFIDENCE: 0.3
+  INPUT_NAME: yolov2-tiny/net1
+  OUTPUT_NAME: yolov2-tiny/convolutional9/BiasAdd
+  MINIMUM_CONFIDENCE: 0.2
   CLASS_COUNT: 100
 --- !u!4 &2031168779
 Transform:
@@ -1079,7 +1081,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2096813970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94312e3eee28d473db22be2de64a3391, type: 3}
+  m_Script: {fileID: 11500000, guid: e8859dbd01756264a97258b2ba723437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   modelFile: {fileID: 5022602860645237092, guid: 885f42f35cce8544bb6e71e7079f0295,
@@ -1088,7 +1090,7 @@ MonoBehaviour:
   INPUT_NAME: 000_net
   OUTPUT_NAME_L: 016_convolutional
   OUTPUT_NAME_M: 023_convolutional
-  MINIMUM_CONFIDENCE: 0.4
+  MINIMUM_CONFIDENCE: 0.25
   CLASS_COUNT: 80
 --- !u!4 &2096813972
 Transform:
