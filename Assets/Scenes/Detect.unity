@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,112 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &36209703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 36209705}
+  - component: {fileID: 36209704}
+  - component: {fileID: 36209707}
+  - component: {fileID: 36209706}
+  m_Layer: 0
+  m_Name: ARSim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &36209704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36209703}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c7dbe8ee98417fa5d311951c5fd23f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneOrPrefab: {fileID: 5889051510850662349, guid: 5ea05c8affc774741915233a56ca6193,
+    type: 3}
+  NotEditable: 1
+  HideInHierarchy: 0
+  HideInSceneView: 0
+  Format: 0
+  NotSaved: 1
+  AllowRuntimeUpdates: 0
+  previousRealitySceneOrPrefab: {fileID: 5889051510850662349, guid: 5ea05c8affc774741915233a56ca6193,
+    type: 3}
+  isValidRealityScene: 1
+  environmentCamera: {fileID: 0}
+  currentRealityScenePath: 
+  currentRealitySceneInstance:
+    m_Handle: 0
+  currentRealityPrefabInstance: {fileID: 0}
+  instantiatedGameObjects: []
+--- !u!4 &36209705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36209703}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.83543235, y: 1.2246709, z: -1.8691459}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &36209706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36209703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9edb2a0699d542eebeee37fd7342f7e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Interval: 0.1
+  RaysPerFrame: 5
+  Mask:
+    serializedVersion: 2
+    m_Bits: 0
+  MaxDistance: 5
+  MaxCount: 1000
+  NormalOffset: 0.01
+  RandomJitter: 0
+  OrderHitsByDist: 0
+  DrawGizmosSelected: 0
+  _isFirstValidate: 0
+--- !u!114 &36209707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36209703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88d44bbac43449dbadd76670e26af24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleCount: 3
+  interval: 0.2
+  maxDistance: 5
+  planeEps: 0.1
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
+  _isFirstValidate: 0
 --- !u!1 &42609963
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +269,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &42609966
 Canvas:
   m_ObjectHideFlags: 0
@@ -417,7 +524,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1274020240
 PrefabInstance:
@@ -429,7 +536,7 @@ PrefabInstance:
     - target: {fileID: 8151608749036815813, guid: 2c1d34a0b201e4f8ea095f4a30d79d6f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8151608749036815813, guid: 2c1d34a0b201e4f8ea095f4a30d79d6f,
         type: 3}
@@ -543,11 +650,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CameraManager: {fileID: 1479178377}
   m_RawImage: {fileID: 1375191585}
+  selected_detector: 0
+  detector: {fileID: 2031168778}
   shiftX: 0
   shiftY: 0
   scaleFactor: 1
   colorTag: {r: 0.3843137, g: 0, b: 0.9333333, a: 1}
-  detector: {fileID: 1806990143}
   localization: 0
 --- !u!4 &1293103702
 Transform:
@@ -561,7 +669,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1375191582
 GameObject:
@@ -701,7 +809,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 31
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -788,8 +896,9 @@ GameObject:
   - component: {fileID: 1768617437}
   - component: {fileID: 1768617441}
   - component: {fileID: 1768617440}
-  - component: {fileID: 1768617439}
   - component: {fileID: 1768617442}
+  - component: {fileID: 1768617443}
+  - component: {fileID: 1768617439}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -823,7 +932,7 @@ Transform:
   m_Children:
   - {fileID: 1479178379}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1768617439
 MonoBehaviour:
@@ -874,14 +983,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768617436}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ab0e80cee9cc1d44928bfe488dd1e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_PointCloudPrefab: {fileID: 1854016325464908, guid: 3682a31e884ba23498b98aa13424b070,
     type: 3}
---- !u!1 &1806990141
+--- !u!114 &1768617443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768617436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlanePrefab: {fileID: 4790095165407838153, guid: c4e486de976fe5b458821f4f895780b2,
+    type: 3}
+  m_DetectionMode: -1
+--- !u!1 &2031168777
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -889,22 +1013,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1806990142}
-  - component: {fileID: 1806990143}
+  - component: {fileID: 2031168779}
+  - component: {fileID: 2031168778}
   m_Layer: 0
-  m_Name: Detector
+  m_Name: Detector Yolo2-tiny
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1806990142
+--- !u!114 &2031168778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031168777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cec27819255f0ea47bcc6d3f47bff5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelFile: {fileID: 5022602860645237092, guid: 016586ec820c54c409f01ecabe1df1e2,
+    type: 3}
+  labelsFile: {fileID: 4900000, guid: 4308da5922acc4035bfd80354ca33fa8, type: 3}
+  INPUT_NAME: yolov2-tiny/net1
+  OUTPUT_NAME: yolov2-tiny/convolutional9/BiasAdd
+  MINIMUM_CONFIDENCE: 0.2
+  CLASS_COUNT: 100
+--- !u!4 &2031168779
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806990141}
+  m_GameObject: {fileID: 2031168777}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -912,21 +1055,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1806990143
+--- !u!1 &2096813970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2096813972}
+  - component: {fileID: 2096813971}
+  m_Layer: 0
+  m_Name: Detector Yolo3-tiny
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2096813971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806990141}
+  m_GameObject: {fileID: 2096813970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da11ba848a6f6304092f9ba436774b18, type: 3}
+  m_Script: {fileID: 11500000, guid: e8859dbd01756264a97258b2ba723437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelFile: {fileID: 5022602860645237092, guid: 016586ec820c54c409f01ecabe1df1e2,
+  modelFile: {fileID: 5022602860645237092, guid: 885f42f35cce8544bb6e71e7079f0295,
     type: 3}
-  labelsFile: {fileID: 4900000, guid: 4308da5922acc4035bfd80354ca33fa8, type: 3}
+  labelsFile: {fileID: 4900000, guid: c88409e946cdfce4d856d1577eee644a, type: 3}
+  INPUT_NAME: 000_net
+  OUTPUT_NAME_L: 016_convolutional
+  OUTPUT_NAME_M: 023_convolutional
+  MINIMUM_CONFIDENCE: 0.25
+  CLASS_COUNT: 80
+--- !u!4 &2096813972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096813970}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &2118813720
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -934,7 +1113,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
-  serializedVersion: 2
+  serializedVersion: 3
   m_GIWorkflowMode: 0
   m_EnableBakedLightmaps: 1
   m_EnableRealtimeLightmaps: 1
@@ -956,7 +1135,7 @@ LightingSettings:
   m_MixedBakeMode: 2
   m_LightmapsBakeMode: 1
   m_FilterMode: 1
-  m_LightmapParameters: {fileID: 0}
+  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
   m_ExportTrainingData: 0
   m_TrainingDataDestination: TrainingData
   m_RealtimeResolution: 2
@@ -973,7 +1152,7 @@ LightingSettings:
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 4
   m_PVRBounces: 2
-  m_PVRRussianRouletteStartBounce: 2
+  m_PVRMinBounces: 1
   m_PVREnvironmentMIS: 0
   m_PVRFilteringMode: 2
   m_PVRDenoiserTypeDirect: 0

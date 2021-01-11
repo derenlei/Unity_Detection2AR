@@ -41,6 +41,7 @@ public class AnchorCreator : MonoBehaviour
                 Debug.Log($"DEBUG: creating anchor. {outline}");
                 // Remember the anchor so we can remove it later.
                 anchorDic.Add(anchor, outline);
+                Debug.Log($"DEBUG: Current number of anchors {anchorDic.Count}.");
                 return true;
             }
             else
@@ -48,6 +49,7 @@ public class AnchorCreator : MonoBehaviour
                 Debug.Log("DEBUG: Error creating anchor");
                 return false;
             }
+            
         }
         else
         {
@@ -108,8 +110,7 @@ public class AnchorCreator : MonoBehaviour
             var height = outline.Dimensions.Height * this.scaleFactor;
 
             float center_x = xMin + width / 2f;
-            float center_y = yMin - height / 2f;
-
+            float center_y = yMin - height / 2f;   
 
             if (Pos2Anchor(center_x, center_y, outline))
             {
@@ -121,7 +122,7 @@ public class AnchorCreator : MonoBehaviour
                 //Debug.Log("Outline used is false");
             }
         }
-        Debug.Log($"DEBUG: Current number of anchors {anchorDic.Count}.");
+        
     }
 
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();

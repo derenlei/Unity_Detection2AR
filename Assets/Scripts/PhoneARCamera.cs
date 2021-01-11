@@ -41,6 +41,14 @@ public class PhoneARCamera : MonoBehaviour
         set { m_RawImage = value; }
     }
 
+    public enum Detectors{
+        Yolo2_tiny,
+        Yolo3_tiny
+    };
+    public Detectors selected_detector;
+
+    public Detector detector = null;
+
     public float shiftX = 0f;
     public float shiftY = 0f;
     public float scaleFactor = 1;
@@ -54,7 +62,7 @@ public class PhoneARCamera : MonoBehaviour
     public List<BoundingBox> boxSavedOutlines = new List<BoundingBox>();
     // lock model when its inferencing a frame
     private bool isDetecting = false;
-    public Detector detector;
+
     // the number of frames that bounding boxes stay static
     private int staticNum = 0;
     public bool localization = false;
@@ -75,9 +83,22 @@ public class PhoneARCamera : MonoBehaviour
         labelStyle.fontSize = 50;
         labelStyle.normal.textColor = this.colorTag;
 
+        if (selected_detector == Detectors.Yolo2_tiny)
+        {
+            detector = GameObject.Find("Detector Yolo2-tiny").GetComponent<DetectorYolo2>();
+        }
+        else if (selected_detector == Detectors.Yolo3_tiny)
+        {
+            detector = GameObject.Find("Detector Yolo3-tiny").GetComponent<DetectorYolo3>();
+        }
+        else
+        {
+            Debug.Log("DEBUG: Invalid detector model");
+        }
+
         this.detector.Start();
 
-        CalculateShift(Detector.IMAGE_SIZE);
+        CalculateShift(this.detector.IMAGE_SIZE);
     }
 
     void OnDisable()
@@ -199,11 +220,11 @@ public class PhoneARCamera : MonoBehaviour
                 if (IsSameObject(outline1, outline2))
                 {
                     unique = false;
-                    if (outline1.Confidence > outline2.Confidence) //& outline2.Confidence < 0.5F)
+                    if (outline1.Confidence > outline2.Confidence + 0.05F) //& outline2.Confidence < 0.5F)
                     {
                         Debug.Log("DEBUG: add detected boxes in this frame.");
-                        Debug.Log($"Add Label: {outline1.Label}. Confidence: {outline1.Confidence}.");
-                        Debug.Log($"Remove Label: {outline2.Label}. Confidence: {outline2.Confidence}.");
+                        Debug.Log($"DEBUG: Add Label: {outline1.Label}. Confidence: {outline1.Confidence}.");
+                        Debug.Log($"DEBUG: Remove Label: {outline2.Label}. Confidence: {outline2.Confidence}.");
 
                         this.boxSavedOutlines.Remove(outline2);
                         this.boxSavedOutlines.Add(outline1);
@@ -228,6 +249,34 @@ public class PhoneARCamera : MonoBehaviour
             staticNum += 1;
         }
 
+        // merge same bounding boxes
+        // remove will cause duplicated bounding box?
+        List<BoundingBox> temp = new List<BoundingBox>();
+        foreach (var outline1 in this.boxSavedOutlines)
+        {
+            if (temp.Count == 0)
+            {
+                temp.Add(outline1);
+                continue;
+            }
+            foreach (var outline2 in temp)
+            {
+                if (IsSameObject(outline1, outline2))
+                {
+                    if (outline1.Confidence > outline2.Confidence)
+                    {
+                        temp.Remove(outline2);
+                        temp.Add(outline1);
+                        Debug.Log("DEBUG: merge bounding box conflict!!!");
+                    }
+                }
+                else
+                {
+                    temp.Add(outline1);
+                }
+            }
+        }
+        this.boxSavedOutlines = temp;
     }
 
     // For two bounding boxes, if at least one center is inside the other box,
@@ -248,12 +297,12 @@ public class PhoneARCamera : MonoBehaviour
         float center_x2 = xMin2 + width2 / 2f;
         float center_y2 = yMin2 + height2 / 2f;
 
-        bool cover_x = (xMin2 < center_x1) & (center_x1 < (xMin2 + width2));
-        bool cover_y = (yMin2 < center_y1) & (center_y1 < (yMin2 + height2));
-        bool contain_x = (xMin1 < center_x2) & (center_x2 < (xMin1 + width1));
-        bool contain_y = (yMin1 < center_y2) & (center_y2 < (yMin1 + height1));
+        bool cover_x = (xMin2 < center_x1) && (center_x1 < (xMin2 + width2));
+        bool cover_y = (yMin2 < center_y1) && (center_y1 < (yMin2 + height2));
+        bool contain_x = (xMin1 < center_x2) && (center_x2 < (xMin1 + width1));
+        bool contain_y = (yMin1 < center_y2) && (center_y2 < (yMin1 + height1));
 
-        return (cover_x & cover_y) | (contain_x & contain_y);
+        return (cover_x && cover_y) || (contain_x && contain_y);
     }
 
     private void CalculateShift(int inputSize)
@@ -282,7 +331,7 @@ public class PhoneARCamera : MonoBehaviour
         }
 
         this.isDetecting = true;
-        StartCoroutine(ProcessImage(Detector.IMAGE_SIZE, result =>
+        StartCoroutine(ProcessImage(this.detector.IMAGE_SIZE, result =>
         {
             StartCoroutine(this.detector.Detect(result, boxes =>
             {
