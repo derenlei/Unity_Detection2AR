@@ -51,10 +51,6 @@ public class DetectorYolo3 : MonoBehaviour, Detector
 
     private float[] anchors = new float[]
     {
-        // 1.08F, 1.19F, 3.42F, 4.41F, 6.63F, 11.38F, 9.42F, 5.11F, 16.62F, 10.52F  // yolov2-tiny-voc
-        //0.57273F, 0.677385F, 1.87446F, 2.06253F, 3.33843F, 5.47434F, 7.88282F, 3.52778F, 9.77052F, 9.16828F // yolov2-tiny
-        //0.57273F, 0.677385F, 1.87446F, 2.06253F, 3.33843F, 5.47434F, 7.88282F, 3.52778F, 9.77052F, 9.16828F  // yolov2-tiny-food
-        //0.57273F, 0.677385F, 1.87446F, 2.06253F, 3.33843F, 5.47434F, 7.88282F, 3.52778F, 9.77052F, 9.16828F // yolov3
         10F, 14F,  23F, 27F,  37F, 58F,  81F, 82F,  135F, 169F,  344F, 319F // yolov3-tiny
     };
 
@@ -65,9 +61,8 @@ public class DetectorYolo3 : MonoBehaviour, Detector
             .Where(s => !String.IsNullOrEmpty(s)).ToArray();
         var model = ModelLoader.Load(this.modelFile);
         // https://docs.unity3d.com/Packages/com.unity.barracuda@1.0/manual/Worker.html
-        //var workerType = WorkerFactory.Type.ComputePrecompiled; // GPU
-        var workerType = WorkerFactory.Type.CSharpBurst;  // CPU
-        this.worker = WorkerFactory.CreateWorker(workerType, model);
+        //These checks all check for GPU before CPU as GPU is preferred if the platform + rendering pipeline support it
+        this.worker = GraphicsWorker.GetWorker(model);
     }
 
 
