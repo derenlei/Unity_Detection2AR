@@ -109,6 +109,19 @@ public class PhoneARCamera : MonoBehaviour
         }
     }
 
+    public void OnRefresh()
+    {
+        Debug.Log("DEBUG: onRefresh, removing anchors and boundingboxes");
+        localization = false;
+        staticNum = 0;
+        // clear boubding box containers
+        boxSavedOutlines.Clear();
+        boxOutlines.Clear();
+        // clear anchor
+        AnchorCreator anchorCreator = FindObjectOfType<AnchorCreator>();
+        anchorCreator.RemoveAllAnchors();
+    }
+
 
     unsafe void OnCameraFrameReceived(ARCameraFrameEventArgs eventArgs)
     {

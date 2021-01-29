@@ -5,6 +5,17 @@ using UnityEngine.XR.ARSubsystems;
 
 public class AnchorCreator : MonoBehaviour
 {
+    public void RemoveAllAnchors()
+    {
+        Debug.Log($"DEBUG: Removing all anchors ({anchorDic.Count})");
+        foreach (var anchor in anchorDic)
+        {
+            Destroy(anchor.Key.gameObject);
+        }
+        s_Hits.Clear();
+        anchorDic.Clear();
+    }
+
     void Awake()
     {
         m_RaycastManager = GetComponent<ARRaycastManager>();
@@ -49,7 +60,7 @@ public class AnchorCreator : MonoBehaviour
                 Debug.Log("DEBUG: Error creating anchor");
                 return false;
             }
-            
+
         }
         else
         {
@@ -110,7 +121,7 @@ public class AnchorCreator : MonoBehaviour
             var height = outline.Dimensions.Height * this.scaleFactor;
 
             float center_x = xMin + width / 2f;
-            float center_y = yMin - height / 2f;   
+            float center_y = yMin - height / 2f;
 
             if (Pos2Anchor(center_x, center_y, outline))
             {
@@ -122,7 +133,7 @@ public class AnchorCreator : MonoBehaviour
                 //Debug.Log("Outline used is false");
             }
         }
-        
+
     }
 
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
