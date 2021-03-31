@@ -227,6 +227,8 @@ public class PhoneARCamera : MonoBehaviour
         foreach (var outline1 in this.boxOutlines)
         {
             bool unique = true;
+            List<BoundingBox> itemsToAdd = new List<BoundingBox>();
+            List<BoundingBox> itemsToRemove = new List<BoundingBox>();
             foreach (var outline2 in this.boxSavedOutlines)
             {
                 // if two bounding boxes are for the same object, use high confidnece one
@@ -239,14 +241,17 @@ public class PhoneARCamera : MonoBehaviour
                         Debug.Log($"DEBUG: Add Label: {outline1.Label}. Confidence: {outline1.Confidence}.");
                         Debug.Log($"DEBUG: Remove Label: {outline2.Label}. Confidence: {outline2.Confidence}.");
 
-                        this.boxSavedOutlines.Remove(outline2);
-                        this.boxSavedOutlines.Add(outline1);
+                        itemsToRemove.Add(outline2);
+                        itemsToAdd.Add(outline1);
                         addOutline = true;
                         staticNum = 0;
                         break;
                     }
                 }
             }
+            this.boxSavedOutlines.RemoveAll(item => itemsToRemove.Contains(item));
+            this.boxSavedOutlines.AddRange(itemsToAdd);
+
             // if outline1 in current frame is unique, add it permanently
             if (unique)
             {
@@ -272,22 +277,27 @@ public class PhoneARCamera : MonoBehaviour
                 temp.Add(outline1);
                 continue;
             }
+
+            List<BoundingBox> itemsToAdd = new List<BoundingBox>();
+            List<BoundingBox> itemsToRemove = new List<BoundingBox>();
             foreach (var outline2 in temp)
             {
                 if (IsSameObject(outline1, outline2))
                 {
                     if (outline1.Confidence > outline2.Confidence)
                     {
-                        temp.Remove(outline2);
-                        temp.Add(outline1);
+                        itemsToRemove.Add(outline2);
+                        itemsToAdd.Add(outline1);
                         Debug.Log("DEBUG: merge bounding box conflict!!!");
                     }
                 }
                 else
                 {
-                    temp.Add(outline1);
+                    itemsToAdd.Add(outline1);
                 }
             }
+            temp.RemoveAll(item => itemsToRemove.Contains(item));
+            temp.AddRange(itemsToAdd);
         }
         this.boxSavedOutlines = temp;
     }
