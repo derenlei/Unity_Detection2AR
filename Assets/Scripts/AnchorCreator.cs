@@ -85,16 +85,20 @@ public class AnchorCreator : MonoBehaviour
         // Currently not using. Can be removed.
         if (anchorDic.Count != 0)
         {
+            List<ARAnchor> itemsToRemove = new List<ARAnchor>();
             foreach (KeyValuePair<ARAnchor, BoundingBox> pair in anchorDic)
             {
                 if (!boxSavedOutlines.Contains(pair.Value))
                 {
                     Debug.Log($"DEBUG: anchor removed. {pair.Value.Label}: {(int)(pair.Value.Confidence * 100)}%");
 
-                    anchorDic.Remove(pair.Key);
+                    itemsToRemove.Add(pair.Key);
                     m_AnchorManager.RemoveAnchor(pair.Key);
                     s_Hits.Clear();
                 }
+            }
+            foreach (var item in itemsToRemove) {
+                anchorDic.Remove(item);
             }
         }
 
