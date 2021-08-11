@@ -37,4 +37,5 @@ We currently support <strong>Yolo version 2 (tiny)</strong> and <strong>Yolo ver
 1. Convert your model into the ONNX format. If it is trained through Darknet, convert it into <strong>frozen</strong> tensorflow model first, then ONNX.
 2. Upload the model and label to `Assets/Models`. Use inspector to update your model settings in `Scene: Detect -> Game Object: Detector Yolo2-tiny / Detector Yolo3-tiny`. Update anchor info in the DetectorYolo script [here](Assets/Scripts/DetectorYolo2.cs#L46) or [here](Assets/Scripts/DetectorYolo3.cs#L52).
 ## Acknowledgement
-Partial code borrowed from [TFClassify-Unity-Barracuda](https://github.com/Syn-McJ/TFClassify-Unity-Barracuda) and [arfoundation-samples](https://github.com/Unity-Technologies/arfoundation-samples).
+* Partial code borrowed from [TFClassify-Unity-Barracuda](https://github.com/Syn-McJ/TFClassify-Unity-Barracuda) and [arfoundation-samples](https://github.com/Unity-Technologies/arfoundation-samples).
+* [AR Simulation package](https://github.com/needle-tools/ar-simulation) is only free for noncommercial use.
